@@ -1,19 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { InjectRepository } from "@nestjs/typeorm";
+import { User } from "../users/entities/user.entity";
+import { Repository } from "typeorm";
+import { Post } from "./entities/post.entity";
 
 @Injectable()
 export class PostService {
+  constructor(
+    @InjectRepository(Post)
+    private usersRepository: Repository<Post>,
+  ) {}
+
   create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+    return this.usersRepository.save(createPostDto);
   }
 
   findAll() {
-    return `This action returns all post`;
+    return this.usersRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} post`;
+    return this.usersRepository.findOneBy({ id });
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
@@ -21,6 +30,6 @@ export class PostService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} post`;
+    return this.usersRepository.delete(id);
   }
 }

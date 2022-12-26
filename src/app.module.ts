@@ -6,6 +6,8 @@ import { ClimbersModule } from './climbers/climbers.module';
 import { UsersModule } from './users/users.module';
 import {User} from "./users/entities/user.entity";
 import { PostModule } from './post/post.module';
+import { Post } from "./post/entities/post.entity";
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -16,13 +18,14 @@ import { PostModule } from './post/post.module';
       username: 'postgres',
       password: 'postgrespw',
       database: 'postgres',
-      entities: [User],
+      entities: [User, Post],
       synchronize: true,
       logging: true,
     }),
     ClimbersModule,
     UsersModule,
     PostModule,
+    LikeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
