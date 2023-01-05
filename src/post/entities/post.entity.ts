@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('posts')
 export class Post {
@@ -10,4 +10,7 @@ export class Post {
 
   @Column()
   caption: string;
+
+  @Column({ default: 0 })
+  likeCount: number;
 }

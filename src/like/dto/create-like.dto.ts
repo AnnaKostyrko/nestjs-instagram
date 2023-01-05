@@ -1,1 +1,3 @@
-export class CreateLikeDto {}
+export class CreateLikeDto {
+  readonly postId: number;
+}
