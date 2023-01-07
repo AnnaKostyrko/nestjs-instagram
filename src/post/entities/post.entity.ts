@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from '../../users/entities/user.entity';
+import { Like } from "../../like/entities/like.entity";
 
 @Entity('posts')
 export class Post {
@@ -13,4 +15,10 @@ export class Post {
 
   @Column({ default: 0 })
   likeCount: number;
+
+  @ManyToOne(() => User, (user) => user.post)
+  user: User;
+
+  @OneToMany(() => Like, (like) => like.post)
+  like: Like[];
 }

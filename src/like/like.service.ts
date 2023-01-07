@@ -16,16 +16,17 @@ export class LikeService {
     private postRepository: Repository<Post>,
   ) {}
 
-  async create(createLikeDto: CreateLikeDto) {
+  async create(postId: number, userId: number) {
     const post = await this.postRepository.findOneBy({
-      id: createLikeDto.postId,
+      id: postId,
     });
     if (!post) {
       throw new HttpException('Post not found', HttpStatus.BAD_REQUEST);
     }
     post.likeCount++;
     await this.postRepository.save(post);
-    return this.likeRepository.save(createLikeDto);
+
+    return this.likeRepository.save({ postId, userId });
   }
 
   find(postId: number) {

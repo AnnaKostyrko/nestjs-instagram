@@ -7,18 +7,24 @@ import {
   Param,
   Delete,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiTags } from "@nestjs/swagger";
+import { CurrentUser } from "../auth/user-decorator";
 
+@UseGuards(JwtAuthGuard)
+@ApiTags('posts')
 @Controller()
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  async create(@Body() createPostDto: CreatePostDto) {
-    await this.postService.create(createPostDto);
+  async create(@Body() createPostDto: CreatePostDto, @CurrentUser() user) {
+    await this.postService.create(createPostDto, user.userId);
   }
 
   @Get()

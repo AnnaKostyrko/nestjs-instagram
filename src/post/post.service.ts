@@ -11,10 +11,17 @@ export class PostService {
   constructor(
     @InjectRepository(Post)
     private postRepository: Repository<Post>,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
 
-  create(createPostDto: CreatePostDto): Promise<Post> {
-    return this.postRepository.save(createPostDto);
+  async create(createPostDto: CreatePostDto, userId: number): Promise<Post> {
+    const post = new Post();
+    post.caption = createPostDto.caption;
+    post.imgUrl = createPostDto.imgUrl;
+    post.user = await this.usersRepository.findOneBy({ id: userId });
+
+    return this.postRepository.save(post);
   }
 
   findAll(): Promise<Post[]> {
