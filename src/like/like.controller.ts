@@ -10,7 +10,7 @@ import {
 import { LikeService } from './like.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../auth/user-decorator';
-import { ApiTags } from "@nestjs/swagger";
+import { ApiTags } from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard)
 @ApiTags('likes')

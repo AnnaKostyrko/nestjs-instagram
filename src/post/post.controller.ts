@@ -32,6 +32,11 @@ export class PostController {
     return this.postService.findAll();
   }
 
+  @Get('feed')
+  getFeed() {
+    return this.postService.getFeed();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.postService.findOne(+id);

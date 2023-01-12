@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Post } from "../../post/entities/post.entity";
 import { Like } from "../../like/entities/like.entity";
+import { Comment } from "../../comment/entities/comment.entity";
 
 @Entity('users')
 export class User {
@@ -16,9 +17,12 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToMany(() => Post, (post) => post.user)
+  @OneToMany(() => Post, (post) => post.author)
   post: Post[];
 
   @OneToMany(() => Like, (like) => like.user)
   like: Like[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comment: Comment[];
 }

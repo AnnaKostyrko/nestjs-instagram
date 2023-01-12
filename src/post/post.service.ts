@@ -19,13 +19,25 @@ export class PostService {
     const post = new Post();
     post.caption = createPostDto.caption;
     post.imgUrl = createPostDto.imgUrl;
-    post.user = await this.usersRepository.findOneBy({ id: userId });
+    post.author = await this.usersRepository.findOneBy({ id: userId });
 
     return this.postRepository.save(post);
   }
 
   findAll(): Promise<Post[]> {
     return this.postRepository.find({ order: { id: 'desc' } });
+  }
+
+  async getFeed() {
+    const feed = {
+      feedItems: await this.postRepository.find({
+        order: { id: 'desc' },
+        relations: {
+          author: true,
+        },
+      }),
+    };
+    return feed;
   }
 
   findOne(id: number): Promise<Post> {

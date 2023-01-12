@@ -11,6 +11,8 @@ import { LikeModule } from './like/like.module';
 import { Like } from './like/entities/like.entity';
 import { RouterModule, Routes } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
+import { CommentModule } from './comment/comment.module';
+import { Comment } from './comment/entities/comment.entity';
 
 const routes: Routes = [
   {
@@ -20,6 +22,10 @@ const routes: Routes = [
       {
         path: ':postId/likes',
         module: LikeModule,
+      },
+      {
+        path: ':postId/comments',
+        module: CommentModule,
       },
     ],
   },
@@ -34,7 +40,7 @@ const routes: Routes = [
       username: 'postgres',
       password: 'postgrespw',
       database: 'postgres',
-      entities: [User, Post, Like],
+      entities: [User, Post, Like, Comment],
       synchronize: true,
       logging: true,
     }),
@@ -44,6 +50,7 @@ const routes: Routes = [
     PostModule,
     LikeModule,
     AuthModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
