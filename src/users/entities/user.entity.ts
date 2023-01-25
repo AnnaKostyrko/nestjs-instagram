@@ -1,7 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Post } from "../../post/entities/post.entity";
-import { Like } from "../../like/entities/like.entity";
-import { Comment } from "../../comment/entities/comment.entity";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinTable,
+  ManyToMany,
+} from 'typeorm';
+import { Post } from '../../post/entities/post.entity';
+import { Like } from '../../like/entities/like.entity';
+import { Comment } from '../../comment/entities/comment.entity';
+import { Role } from '../../roles/role.enum';
 
 @Entity('users')
 export class User {
@@ -11,7 +19,7 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column({ default: true })
@@ -25,4 +33,11 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comment: Comment[];
+
+  @Column({ default: Role.User })
+  role: Role;
+
+  @ManyToMany(() => User, (user) => user.friends)
+  @JoinTable()
+  friends: User[];
 }

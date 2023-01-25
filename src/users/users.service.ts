@@ -16,6 +16,23 @@ export class UsersService {
     return this.usersRepository.save(createUserDto);
   }
 
+  async subscribe(currentUserId: number, friendId: number) {
+    const currentUsers = await this.usersRepository.find({
+      where: {
+        id: currentUserId,
+      },
+      relations: {
+        friends: true,
+      },
+    });
+    const currentUser = currentUsers[0];
+
+    const friend = await this.findOne(friendId);
+    currentUser.friends.push(friend);
+
+    return this.usersRepository.save(currentUser);
+  }
+
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }

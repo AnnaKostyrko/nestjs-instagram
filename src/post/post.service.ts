@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../users/entities/user.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Post } from './entities/post.entity';
+import { timeDifference } from './format-date';
 
 @Injectable()
 export class PostService {
@@ -19,6 +20,7 @@ export class PostService {
     const post = new Post();
     post.caption = createPostDto.caption;
     post.imgUrl = createPostDto.imgUrl;
+    post.location = createPostDto.location;
     post.author = await this.usersRepository.findOneBy({ id: userId });
 
     return this.postRepository.save(post);
@@ -29,15 +31,26 @@ export class PostService {
   }
 
   async getFeed() {
-    const feed = {
-      feedItems: await this.postRepository.find({
-        order: { id: 'desc' },
-        relations: {
-          author: true,
-        },
-      }),
+    const feedItems = await this.postRepository.find({
+      order: { created_at: 'desc' },
+      relations: {
+        author: true,
+      },
+    });
+
+    const formattedFeedItems = feedItems.map((item: Post) => {
+      const responseItem = {
+        ...item,
+        relativeDate: timeDifference(new Date(), item.created_at),
+      };
+      delete responseItem.created_at;
+
+      return responseItem;
+    });
+
+    return {
+      feedItems: formattedFeedItems,
     };
-    return feed;
   }
 
   findOne(id: number): Promise<Post> {

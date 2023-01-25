@@ -9,10 +9,12 @@ import { PostModule } from './post/post.module';
 import { Post } from './post/entities/post.entity';
 import { LikeModule } from './like/like.module';
 import { Like } from './like/entities/like.entity';
-import { RouterModule, Routes } from '@nestjs/core';
+import { APP_GUARD, RouterModule, Routes } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { CommentModule } from './comment/comment.module';
 import { Comment } from './comment/entities/comment.entity';
+import { RolesGuard } from './roles/roles.guard';
+import { JwtStrategy } from './auth/jwt.strategy';
 
 const routes: Routes = [
   {

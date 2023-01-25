@@ -1,7 +1,14 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
-import { Like } from "../../like/entities/like.entity";
-import { Comment } from "../../comment/entities/comment.entity";
+import { Like } from '../../like/entities/like.entity';
+import { Comment } from '../../comment/entities/comment.entity';
 
 @Entity('posts')
 export class Post {
@@ -19,6 +26,9 @@ export class Post {
 
   @Column({ default: 0 })
   commentCount: number;
+
+  @Column({ nullable: true })
+  location: string;
 
   @ManyToOne(() => User, (user) => user.post)
   author: User;
