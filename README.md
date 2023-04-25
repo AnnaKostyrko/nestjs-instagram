@@ -4,15 +4,15 @@
 
 ## Description
 
-It is my test project for learning Nest.js, Typescript and interaction with Postgres database.
+It is my test project for learning Nest.js, Typescript and interaction with PostgreSQL database.
 
 Technologies used:
 * Nest.js/Typescript
 * OOP
 * JWT
 * TypeORM
-* PostgresSQL
-* Swager
+* PostgreSQL
+* Swagger
 
 Tested with Postman
 
