@@ -7,22 +7,22 @@
 It is my test project for learning Nest.js, Typescript and interaction with Postgres database.
 
 Technologies used:
-Nest.js/Typescript
-OOP
-JWT
-TypeORM
-PostgresSQL
-Swager
+* Nest.js/Typescript
+* OOP
+* JWT
+* TypeORM
+* PostgresSQL
+* Swager
 
 Tested with Postman
 
 There were implemented features of Instagram:
-Auth with roles
-CRUD user
-CRUD post
-Create and delete comments
-Like posts and comments
-Get user feed
+* Auth with roles
+* CRUD user
+* CRUD post
+* Create and delete comments
+* Like posts and comments
+* Get user feed
 
 ## Installation
 
