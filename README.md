@@ -23,6 +23,7 @@ There were implemented features of Instagram:
 * Create and delete comments
 * Like posts and comments
 * Get user feed
+* Created documentation with Swagger
 
 ## Installation
 
